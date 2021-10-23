@@ -1,0 +1,48 @@
+version: "3.9" #
+services:
+  frontend:
+    image: node:16-alpine3.11
+    working_dir: /code/frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/code/frontend
+    container_name: frontend
+    command: npm start
+    depends_on:
+      - backend
+      - mongoose_db
+    # restart: always
+  backend:
+    image: node:16-alpine3.11
+    working_dir: /code/backend
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./backend:/code/backend
+    container_name: backend
+    command: npm run dev
+    environment:
+      DB_HOST: mongoose_db
+    depends_on:
+      - mongoose_db
+    # restart: always
+  mongoose_db:
+    image: mongo:5.0
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_files:/code/mongo_files
+    environment:
+      # PASSWORD: 123456
+      # USERNAME: admin
+      # DB_NAME: admin
+      PASSWORD: process.env.PASSWORD
+      USERNAME: process.env.USERNAME
+      DB_NAME: process.env.DB_NAME
+
+      # MONGODB_CONNSTRING= mongodb://process.env.DB_USER:process.env.DB_PASS@DB_PASS
+      # restart: always
+volumes:
+  mongo_files:

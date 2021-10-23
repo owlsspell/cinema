@@ -1,0 +1,9 @@
+.env
+
+*package-lock.json
+
+*/node_modules
+
+/mongo_files
+
+*yarn.lock

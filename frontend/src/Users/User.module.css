@@ -1,0 +1,15 @@
+.user {
+    background-color: #fff;
+    margin-bottom: 10px
+}
+
+.users {
+    display: flex;
+    flex-direction: column-reverse;;
+   
+}
+
+.containerUsers {
+    padding-top: 20px;
+    
+}
