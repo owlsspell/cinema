@@ -1,4 +1,4 @@
 import { makeVar } from '@apollo/client';
 
-export const selectedSits = makeVar([]);
+export const reservedSits = makeVar([24]);
 
