@@ -5,11 +5,34 @@
 
 .users {
     display: flex;
-    flex-direction: column-reverse;;
+    flex-direction: column-reverse;
    
 }
 
 .containerUsers {
-    padding-top: 20px;
-    
+    padding: 0!important;
+    margin: 0!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(165, 173, 184);
+    width: 100vw;
+    /* height: 100vh; */
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    overflow-y: scroll;
+    height: 100vh;
+    margin: 20px;
+}
+
+.innerContainer {
+    background-color: #fff;
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
 }

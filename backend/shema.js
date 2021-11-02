@@ -1,5 +1,4 @@
-const {  buildSchema } = require('graphql');
-
+const { buildSchema } = require("graphql");
 
 const schema = buildSchema(`
     type User {
@@ -29,19 +28,34 @@ const schema = buildSchema(`
     }
 
     type Query {
-        getAllUsers: [User]
+        getAllUsers: [User] 
         getUser(id: ID): User
+
+
+        
+        getAllSeats: Seats
     }
 
     type Mutation {
         createUser(input: UserInput): User
+
+
+        reservePlaces(input: SeatsArr): Seats
     }
 
-`)
+    type Seats {
+        seats: [Int] 
+    }
 
+    input SeatsArr {
+        seats: [Int!]
+    }
+
+
+`);
 
 // type Query - тип запроса
 //getAllUsers - возвращает массив, каждый элемент будет type User
 //getUser - один пользователь, выз-ся с параметром Id
 
-module.exports = schema
+module.exports = schema;

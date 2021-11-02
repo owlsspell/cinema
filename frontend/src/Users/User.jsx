@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ALL_USERS, GET_ONE_USER } from "../query/user";
 import { CREATE_USER } from "../mutations/user";
+import { reservedSits } from "../State/cinema.initial";
 
 const Users = () => {
   const { data, loading, error, refetch } = useQuery(GET_ALL_USERS);
@@ -20,7 +21,7 @@ const Users = () => {
 
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
 
   console.log(oneUser);
 
@@ -57,6 +58,9 @@ const Users = () => {
 
   return (
     <div className={s.containerUsers}>
+      <div className={s.innerContainer} >
+        {reservedSits().length > 0 ? <div>You have reserved seats: {reservedSits().map(seat=> seat +", ")}</div> : null}
+        <p>Add you info</p>
       <form>
         <Input
           value={username}
@@ -100,6 +104,7 @@ const Users = () => {
           );
         })}
       </List>
+      </div>
     </div>
   );
 };

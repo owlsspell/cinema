@@ -3,7 +3,7 @@ const port = 5005;
 const { graphqlHTTP } = require("express-graphql");
 const cors = require("cors");
 const app = express();
-const schema = require("./schema");
+const schema = require("./shema");
 const mongoose = require("mongoose");
 const root = require("./resolvels");
 
@@ -20,7 +20,6 @@ app.use(cors());
 //   return { id, ...input };
 // };
 
-
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -32,20 +31,15 @@ app.use(
 );
 
 async function main() {
-  await mongoose.connect(
-    "mongodb://mongoose_db:27017/",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
-
+  await mongoose.connect("mongodb://mongoose_db:27017/database", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 }
 
 main()
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", err));
-
 
 app.listen(port, () => {
   console.log("Listen " + port + "...");
