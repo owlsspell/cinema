@@ -9,16 +9,10 @@ const root = require("./resolvels");
 
 require("dotenv").config();
 
-// const users = [{ id: 1, username: "Vasiliy", age: 30 }];
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// const createUser = (input) => {
-//   const id = Date.now();
-//   return { id, ...input };
-// };
 
 app.use(
   "/graphql",

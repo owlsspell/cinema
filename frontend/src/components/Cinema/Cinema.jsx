@@ -65,9 +65,6 @@ const Cinema = () => {
     setSits({ ...sits, ...(sits[row][index] = true) });
   };
 
-  console.log(sits);
-  console.log("choosenSitting", choosenSitting);
-
   function setSelectedSits(e, s, i, row) {
     e.preventDefault();
     console.log(e);
