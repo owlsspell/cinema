@@ -16,12 +16,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(165, 173, 184);
+    background: linear-gradient(45deg, rgb(152, 207, 195), rgb(8, 43, 128));
     width: 100vw;
-    /* height: 100vh; */
-    /* position: absolute;
-    top: 0;
-    left: 0; */
     overflow-y: scroll;
     height: 100vh;
     margin: 20px;
@@ -29,10 +25,13 @@
 
 .innerContainer {
     background-color: #fff;
-    width: 80%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+    justify-content: center;
+    width: 50%;
+    min-height: 40%;
+    box-shadow: 4px 4px 8px 4px rgba(34, 60, 80, 0.2);
+    border-radius: 10%
 }

@@ -7,7 +7,7 @@
     margin: 0 !important;;
     padding: 0;
     z-index: 1;
-    background: url(../images/MDCA_Stage_1920x850_Blue.jpg) no-repeat  center center;
+    background: url(../../images/MDCA_Stage_1920x850_Blue.jpg) no-repeat  center center;
     position: fixed;
     background-size: cover;
     overflow: hidden;
@@ -19,11 +19,9 @@
 }
 .row div {
     border-radius: 20%;
-    /* padding: 20px; */
     width: 60px;
     height: 60px;
     margin: 15px ;
-    /* background-color: rgb(78, 175, 49);/ */
     color: white;
     font-size: 1.5em;
     cursor: pointer;

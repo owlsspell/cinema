@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CinemaSchema = new Schema({
+  date: String,
   mainHall: [Number]
 });
 

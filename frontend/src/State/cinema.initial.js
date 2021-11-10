@@ -1,7 +1,7 @@
 import { makeVar } from '@apollo/client';
 
-export const reservedSits = makeVar([23]);
-// export const mainHall = makeVar({seats:reservedSits()});
+export const reservedSits = makeVar({seats:[]});
+export const reservedSitsByUser = makeVar({seats:[]});
 
 export const ticketHolder = makeVar([]);
 

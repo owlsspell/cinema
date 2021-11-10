@@ -14,6 +14,12 @@ const schema = buildSchema(`
         content: String
     }
 
+
+    type Holder {
+        username: String
+        age: Int
+    }
+
     input UserInput {
         id:ID
         username: String!
@@ -25,6 +31,32 @@ const schema = buildSchema(`
         id: ID
         title: String!
         content: String!
+    }
+
+
+    type Seats {
+        seats: [Int] 
+    }
+
+    input SeatsArr {
+        seats: [Int!]
+    }
+
+    input HolderInput {
+        username: String
+        age: Int
+    }
+
+    input OrderInput {
+        holders: [HolderInput]
+        seats: [Int]
+    }
+    
+ 
+
+    type Order {
+        holders: [Holder]
+        seats: [Int]
     }
 
     type Query {
@@ -41,16 +73,9 @@ const schema = buildSchema(`
 
 
         reservePlaces(input: SeatsArr): Seats
-    }
 
-    type Seats {
-        seats: [Int] 
+        createOrder(input:OrderInput): Order
     }
-
-    input SeatsArr {
-        seats: [Int!]
-    }
-
 
 `);
 
