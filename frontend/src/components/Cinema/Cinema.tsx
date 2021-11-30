@@ -66,14 +66,12 @@ const Cinema = () => {
           return item !== sit;
         })
       );
-    }
-    if (bool) {
-      // @ts-ignore
-      setSits({ ...sits, ...(sits[row][index] = false ) });
+    } 
+    if (bool) {     
+      setSits({ ...sits, ...(sits[row][index]  = false as any) });
       return;
     }
-     // @ts-ignore
-    setSits({ ...sits, ...(sits[row][index] = true) });
+    setSits({ ...sits, ...(sits[row][index] = true as any) });
   };
 
   function setSelectedSits(e:React.MouseEvent<HTMLDivElement>, s:boolean, i: number, row: string) {
