@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Users from "./Users/User";
 import Cinema from "./Cinema/Cinema";
-import Navbar from "./Navbar/NavbarHome";
+import Navbar from "./Navbar/NavbarHome.tsx";
 
 
 function App() {

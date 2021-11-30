@@ -12,10 +12,11 @@ import { Box } from "@mui/system";
 import ShowSnackbar from "../Utils/Snackbar";
 import ShowBackdrop from "../Utils/Backdrop";
 import { GET_ALL_SEATS } from "../../query/seats";
+import {TicketHolder} from "../../State/cinema.initial"
 
 const Users = () => {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
+  const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
   const { data, loading, error, refetch } = useQuery(GET_ALL_USERS);
   const {
     data: allSeats,
@@ -31,9 +32,9 @@ const Users = () => {
   // const [newUser] = useMutation(CREATE_USER);
   const [newOrder] = useMutation(CREATE_ORDER);
 
-  const [success, toogleSuccess] = useState(false);
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
+  const [success, toogleSuccess] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [age, setAge] = useState<string | number>("");
 
   let history = useHistory();
 
@@ -41,18 +42,19 @@ const Users = () => {
     return <h2>Loading...</h2>;
   }
 
-  const addUser = (e) => {
+
+  const addUser = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (username == "" && age == "") {
       alert("Error");
       return;
     }
-    ticketHolder(ticketHolder().concat({ username, age }));
+    ticketHolder((ticketHolder()).concat({ username, age })) 
     setUsername("");
     setAge("");
   };
 
-  const getAll = (e) => {
+  const getAll = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (
       reservedSitsByUser().seats.length === 0 &&
@@ -125,8 +127,8 @@ const Users = () => {
             placeholder="Age"
           />
           <div className="btns">
-            <Button onClick={(e) => addUser(e)}>Create</Button>
-            <Button onClick={(e) => getAll(e)}>Get</Button>
+            <Button onClick={(e:React.MouseEvent<HTMLButtonElement>) => addUser(e)}>Create</Button>
+            <Button onClick={(e:React.MouseEvent<HTMLButtonElement>) => getAll(e)}>Get</Button>
           </div>
         </Box>
         {ticketHolder().length > 0 && (
@@ -165,8 +167,6 @@ const Users = () => {
         }
         openSnackbar={openSnackbar}
         setOpenSnackbar={setOpenSnackbar}
-        openBackdrop={openBackdrop}
-        setOpenBackdrop={setOpenBackdrop}
       />
       <ShowBackdrop
         openBackdrop={openBackdrop}

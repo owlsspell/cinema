@@ -4,23 +4,23 @@ import { Link } from "react-router-dom";
 import { Tab, Tabs } from "@mui/material";
 
 const Navbar = () => {
-  const [isNavOpen, toogleOpen] = useState(false);
-  const [activeTab, toogleTab] = useState(0);
+  const [isNavOpen, toogleOpen] = useState<boolean>(false);
+  const [activeTab, toogleTab] = useState<number>(0);
 
   const handleClick = () => {
-    isNavOpen ? toogleOpen(false) : toogleOpen(true);
+    toogleOpen(!isNavOpen) 
   };
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleChange = (newValue:any) => {
+    return setValue(newValue);
   };
 
   return (
     <div
       className={isNavOpen ? s.wrapper + " " + s.isNavOpen : s.wrapper}
-      onClick={isNavOpen ? handleClick : null}
+      onClick={isNavOpen ? ()=>handleClick() : ()=>{return}}
     >
       <div className={s.nav}>
         <svg

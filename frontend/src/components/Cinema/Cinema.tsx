@@ -15,20 +15,26 @@ import { useHistory } from "react-router-dom";
 import ShowSnackbar from "../Utils/Snackbar";
 import ShowBackdrop from "../Utils/Backdrop";
 
+type TypeSeat = {
+  [key: string]:boolean[] 
+}
+
 const Cinema = () => {
   let history = useHistory();
-  let [sits, setSits] = useState({
+  let [sits, setSits] = useState< TypeSeat >({
     rowOne: new Array(10).fill(false),
     rowTwo: new Array(8).fill(false),
     rowThree: new Array(6).fill(false),
   });
+ 
 
   const [newOrder] = useMutation(CREATE_ORDER);
+  
 
-  let [choosenSitting, addSitting] = useState([]);
+  let [choosenSitting, addSitting] = useState <number[] >([]);
 
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
+  const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
 
   const { data, loading, error, refetch } = useQuery(GET_ALL_SEATS);
   
@@ -45,8 +51,11 @@ const Cinema = () => {
 
   // const [addPlaces] = useMutation(RESERVE_PLACES);
 
-  const showSelectedSits = (e, bool, index, row) => {
-    let sit = Number(e.target.innerText);
+  const showSelectedSits = (e:React.MouseEvent<HTMLDivElement>, bool:boolean, index:number , row:string ) => {
+  
+     // @ts-ignore
+    let sit:number = Number(e.target.textContent);
+    // if (typeof sit == undefined) return;
 
     if (!choosenSitting.includes(sit)) {
       addSitting([...choosenSitting, sit]);
@@ -59,13 +68,15 @@ const Cinema = () => {
       );
     }
     if (bool) {
-      setSits({ ...sits, ...(sits[row][index] = false) });
+      // @ts-ignore
+      setSits({ ...sits, ...(sits[row][index] = false ) });
       return;
     }
+     // @ts-ignore
     setSits({ ...sits, ...(sits[row][index] = true) });
   };
 
-  function setSelectedSits(e, s, i, row) {
+  function setSelectedSits(e:React.MouseEvent<HTMLDivElement>, s:boolean, i: number, row: string) {
     e.preventDefault();
     console.log(e);
     showSelectedSits(e, s, i, row);
@@ -75,10 +86,15 @@ const Cinema = () => {
   
     if (choosenSitting.length === 0) {
       return;
-    }
-    reservedSitsByUser({
-      seats: reservedSitsByUser().seats.concat(choosenSitting),
-    });
+    }  
+
+  
+
+  reservedSitsByUser({
+    seats:  ((reservedSitsByUser().seats as number[]).concat(choosenSitting)) as []
+  })
+   
+
     setOpenBackdrop(true);
     console.log("reservedSitsByUser", reservedSitsByUser().seats);
     console.log("ticketHolder", ticketHolder());
@@ -129,7 +145,7 @@ const Cinema = () => {
               console.log("key", row);
               return (
                 <div className={s.row} key={row}>
-                  {sits[row].map((s, i) => {
+                  {sits[row].map((s:boolean, i:number) => {
                     if (num > 1) {
                       num = num - 1;
 
@@ -173,8 +189,6 @@ const Cinema = () => {
           }
           openSnackbar={openSnackbar}
           setOpenSnackbar={setOpenSnackbar}
-          openBackdrop={openBackdrop}
-          setOpenBackdrop={setOpenBackdrop}
         />
 
         <ShowBackdrop
