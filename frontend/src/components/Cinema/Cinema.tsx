@@ -52,7 +52,7 @@ const Cinema = () => {
   // const [addPlaces] = useMutation(RESERVE_PLACES);
 
   const showSelectedSits = (e:React.MouseEvent<HTMLDivElement>, bool:boolean, index:number , row:string ) => {
-  
+
      // @ts-ignore
     let sit:number = Number(e.target.textContent);
     // if (typeof sit == undefined) return;

@@ -2,7 +2,7 @@ import React from "react";
 import { reservedSitsByUser } from "../../State/cinema.initial";
 
 type PropsSears ={
-  row:string, i:number, s:boolean, setSelectedSits:(e:React.MouseEvent<HTMLDivElement> ,s:boolean,i:number,row:string)=> void,num:number, seats:number[]
+  row:string, i:number, s:boolean, setSelectedSits:(e:React.MouseEvent<HTMLDivElement> ,s:boolean,i:number,row:string)=> void,num:number, seats:number[],
 }
 
 const Seats = ({ row, i, s, setSelectedSits, num, seats }:PropsSears) => {
@@ -17,10 +17,11 @@ const Seats = ({ row, i, s, setSelectedSits, num, seats }:PropsSears) => {
   
 
   return (
-    <div
+    <div id={num.toString()} 
       onClick={!isReserved ? (e:React.MouseEvent<HTMLDivElement> )=> handleClick(e) : ()=>{return}}
       style={isReserved ? red : s ? grey : userReserved ? blue : green}
       // row={row}
+      
     >
       {num}
     </div>

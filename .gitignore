@@ -7,3 +7,5 @@
 /mongo_files
 
 *yarn.lock
+
+*ssh_key_first
