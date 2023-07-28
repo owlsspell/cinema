@@ -14,6 +14,7 @@ import {
 import { useHistory } from "react-router-dom";
 import ShowSnackbar from "../Utils/Snackbar";
 import ShowBackdrop from "../Utils/Backdrop";
+import loader from "../../icons/loader.gif";
 
 const Cinema = () => {
   let history = useHistory();
@@ -31,12 +32,12 @@ const Cinema = () => {
   const [openBackdrop, setOpenBackdrop] = useState(false);
 
   const { data, loading, error, refetch } = useQuery(GET_ALL_SEATS);
-  
+
   useEffect(() => {
-  if (!loading) {
-    console.log("data", data);
-    reservedSits({ seats: data.getAllSeats.seats });
-  }
+    if (!loading) {
+      console.log("data", data);
+      reservedSits({ seats: data.getAllSeats.seats });
+    }
   }, [data]);
 
   if (data) {
@@ -71,8 +72,8 @@ const Cinema = () => {
     showSelectedSits(e, s, i, row);
   }
 
-  async function choosePlaces () {
-  
+  async function choosePlaces() {
+
     if (choosenSitting.length === 0) {
       return;
     }
@@ -84,7 +85,7 @@ const Cinema = () => {
     console.log("ticketHolder", ticketHolder());
     console.log({ holders: ticketHolder(), seats: reservedSitsByUser().seats });
     if (reservedSitsByUser().seats.length === ticketHolder().length) {
-     
+
       setOpenBackdrop(true);
 
       await newOrder({
@@ -95,16 +96,16 @@ const Cinema = () => {
           },
         },
       });
-      
-      reservedSitsByUser({seats:[]})
+
+      reservedSitsByUser({ seats: [] })
       ticketHolder([])
-       refetch()
+      refetch()
     } else {
       setTimeout(function () {
         history.push("/users");
       }, 2000);
     }
-    
+
     addSitting([]);
     setSits({
       rowOne: new Array(10).fill(false),
@@ -114,17 +115,18 @@ const Cinema = () => {
 
     setOpenBackdrop(false);
     setOpenSnackbar(true);
-   
+
   }
 
 
   let num = 25;
- 
+  console.log('loading', loading);
   return (
     <div className={s.container}>
-      <div className={s.cinema}>
-        {
-          !loading &&
+      {loading ? <img src={loader} alt="loader" /> :
+        <div className={s.cinema}>
+          {
+            !loading &&
             Object.keys(sits).map((row) => {
               console.log("key", row);
               return (
@@ -149,39 +151,40 @@ const Cinema = () => {
                 </div>
               );
             })
-        }
-        <Button
-          variant="contained"
-          onClick={() => {
-            choosePlaces();
-          }}
-          className={s.scene}
-        >
-          SCENE (Click to reserve seats)
-        </Button>
-        
-        <ShowSnackbar
-          severity={
-            reservedSitsByUser().seats.length === ticketHolder().length
-              ? "success"
-              : "info"
           }
-          message={
-            reservedSitsByUser().seats.length !== ticketHolder().length
-              ? "Pleace add your name first"
-              : "You have reserved seats!"
-          }
-          openSnackbar={openSnackbar}
-          setOpenSnackbar={setOpenSnackbar}
-          openBackdrop={openBackdrop}
-          setOpenBackdrop={setOpenBackdrop}
-        />
+          <div className={s.sceneContainer}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                choosePlaces();
+              }}
+              className={s.scene}
+            >
+              SCENE (Click to reserve seats)
+            </Button>
+          </div>
+          <ShowSnackbar
+            severity={
+              reservedSitsByUser().seats.length === ticketHolder().length
+                ? "success"
+                : "info"
+            }
+            message={
+              reservedSitsByUser().seats.length !== ticketHolder().length
+                ? "Pleace add your name first"
+                : "You have reserved seats!"
+            }
+            openSnackbar={openSnackbar}
+            setOpenSnackbar={setOpenSnackbar}
+            openBackdrop={openBackdrop}
+            setOpenBackdrop={setOpenBackdrop}
+          />
 
-        <ShowBackdrop
-          openBackdrop={openBackdrop}
-          setOpenBackdrop={setOpenBackdrop}
-        />
-      </div>
+          <ShowBackdrop
+            openBackdrop={openBackdrop}
+            setOpenBackdrop={setOpenBackdrop}
+          />
+        </div>}
     </div>
   );
 };
