@@ -29,7 +29,7 @@ services:
     # restart: always
   mongoose_db:
     image: mongo:5.0
-    container_name: mongo_db
+    container_name: mongo_db_cinema
     ports:
       - "27017:27017"
     volumes:
