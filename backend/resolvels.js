@@ -70,5 +70,3 @@ const root = {
     return holder;
   },
 };
-
-module.exports = root;
